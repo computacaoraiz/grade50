@@ -41,7 +41,9 @@ def interpret_report(scheme, report):
     read_report functions and that the scheme file is as described in the
     README.
     """
-    entry = {'parts': [], 'points': 0, 'points_possible': 0}
+    # Autolab entry for data needed by Autolabproject autograder
+    entry = {'parts': [], 'points': 0, 'points_possible': 0,
+             'autolab': {'scores': {}, 'scoreboard': []}}
     for spart in scheme:
         cmt = []
         points = 0
@@ -78,6 +80,12 @@ def interpret_report(scheme, report):
             'points_possible': points_possible,
             'comments': cmt
         }]
+        # Autolab points for each problem
+        entry['autolab']['scores'][spart['name']] = points
+        entry['autolab']['scoreboard'].append(points)
+    # Autolab entry for total points on lab (to display scoreboard)
+    entry['autolab']['scoreboard'].append(entry['points'])
+
     return entry
 
 
@@ -86,10 +94,11 @@ def main():
     parser.add_argument('-v', '--verbose', action='count', default=0)
     parser.add_argument('scheme', type=argparse.FileType('r'))
     parser.add_argument('report', type=argparse.FileType('r'), default='-')
+    # autojson and autojsonsb to JSON on Autolab format
     parser.add_argument("-o", "--output",
                         action="store",
                         default="ansi",
-                        choices=["ansi", "json"],
+                        choices=["ansi", "json", "autojson", "autojsonsb"],
                         help="output format")
     parser.add_argument('-t', '--template',
                         type=argparse.FileType('r'),
@@ -117,6 +126,15 @@ def main():
     logging.info("output")
     if args.output == 'json':
         output = json.dumps(entry, indent=2)
+
+    # JSON output on autolab format with scoreboard
+    elif args.output == 'autojsonsb':
+        output = json.dumps(entry['autolab'], indent = None)
+
+    # JSON output on autolab format without scoreboard
+    elif args.output == 'autojson':
+        string = '{"scores": ' + json.dumps(entry['autolab']['scores'], indent=None) + '}'
+        output = string
 
     elif args.output == 'ansi':
         # open default template if none is given

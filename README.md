@@ -1,11 +1,13 @@
 # grade50
 
-This is a small tool to be used in combination with the [CS50 automarker check50][check50].
+This is a small tool to be used in combination with the [CS50 automarker check50][check50] and
+optionally with the [Autolab autograding programming][Autolab]
+
 It allows to grade a student's submission based on check50's json report and a given grading scheme.
 
 ## Synopsis
 ```
-usage: grade50 [-h] [-v] [-o {ansi,json}] [-t TEMPLATE] [-V] scheme report
+usage: grade50 [-h] [-v] [-o {ansi,json,autojson,autojsonsb}] [-t TEMPLATE] [-V] scheme report
 
 grade student submissions based on check50 json reports.
 
@@ -17,7 +19,7 @@ positional arguments:
 optional arguments:
   -h, --help            show this help message and exit
   -v, --verbose
-  -o {ansi,json}, --output {ansi,json}
+  -o {ansi,json,autojson,autojsonsb}, --output {ansi,json,autojson,autojsonsb}
                         output format
   -t TEMPLATE, --template TEMPLATE
                         jinja2 template for ansi output
@@ -87,6 +89,16 @@ Further, it maps `parts` to a list of dicts, each with
 - `points_possible`
 - `comments` (a list of comment strings for all checks in this part)
 
+### autojson
+use `grad50 -o autojson` to output json data on Autolab format (without scoreboard).
+This will be a dictionary mapping `problems` and `points` for use on Autolab autograding
+program.
+
+### autojsonsb
+use `grad50 -o autojsonsb` to output json data on Autolab format (with scoreboard).
+This will be a dictionary mapping `problems` and `points`, with a `scoreboard` points
+for each problem and `total points`.
+
 ### text
 Textual output is the default. It is based on the above and the default template (see `grade50/templates/default.jinja2`).
 You can pass any other jinja2 template as by means of the `--template` option.
@@ -95,3 +107,4 @@ This way one can easily generate for example latex sources that can be compiled 
 
 
 [check50]: https://github.com/cs50/check50
+[Autolab]: https://github.com/autolab/Autolab

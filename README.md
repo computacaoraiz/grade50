@@ -1,7 +1,7 @@
 # grade50
 
 This is a small tool to be used in combination with the [CS50 automarker check50][check50] and
-optionally with the [Autolab autograding programming][Autolab]
+optionally with the [Autolab autograding program][Autolab].
 
 It allows to grade a student's submission based on check50's json report and a given grading scheme.
 

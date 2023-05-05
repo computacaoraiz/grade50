@@ -1,20 +1,20 @@
 #!/usr/bin/env python3
 
 import setuptools
-import grade50
+import gradelab50
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="grade50",
-    version=grade50.__version__,
-    author="Patrick Totzke",
-    author_email="patricktotzke@gmail.com",
-    description=grade50.__description__,
+    name="gradelab50",
+    version=gradelab50.__version__,
+    author="Abrantes Araújo Silva Filho",
+    author_email="abrantesasf@pm.me",
+    description=gradelab50.__description__,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/pazz/grade50",
+    url="https://github.com/computacaoraiz/gradelab50",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
@@ -27,7 +27,7 @@ setuptools.setup(
     ],
     entry_points={
         'console_scripts':
-            ['grade50 = grade50.main:main'],
+            ['gradelab50 = gradelab50.main:main'],
     },
-    package_data={'grade50': ['templates/*.jinja2']},
+    package_data={'gradelab50': ['templates/*.jinja2']},
 )

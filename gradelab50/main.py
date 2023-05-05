@@ -9,7 +9,7 @@ import os
 import yaml
 from jinja2 import Template
 
-import grade50
+import gradelab50
 
 DEFAULT_TMPLATE_PATH = os.path.join(
     os.path.abspath(os.path.dirname(__file__)),
@@ -90,7 +90,7 @@ def interpret_report(scheme, report):
 
 
 def main():
-    parser = argparse.ArgumentParser(description=grade50.__description__)
+    parser = argparse.ArgumentParser(description=gradelab50.__description__)
     parser.add_argument('-v', '--verbose', action='count', default=0)
     parser.add_argument('scheme', type=argparse.FileType('r'))
     parser.add_argument('report', type=argparse.FileType('r'), default='-')
@@ -106,7 +106,7 @@ def main():
                         help='jinja2 template for ansi output')
     parser.add_argument('-V', '--version',
                         action='version',
-                        version='%(prog)s ' + grade50.__version__)
+                        version='%(prog)s ' + gradelab50.__version__)
 
     args = parser.parse_args()
     logging.basicConfig(

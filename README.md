@@ -1,13 +1,15 @@
-# grade50
+# gradelab50
 
 This is a small tool to be used in combination with the [CS50 automarker check50][check50] and
-optionally with the [Autolab autograding program][Autolab].
+optionally with the [Autolab autograding program][Autolab]. This tool is a fork of **grade50**,
+by Patrick Totzke (the original `grade50` tool [can be accessed here][grade50]).
 
-It allows to grade a student's submission based on check50's json report and a given grading scheme.
+It allows to grade a student's submission based on check50's json report and a given grading
+scheme, and output a json report in a standard or in an Autolab format.
 
 ## Synopsis
 ```
-usage: grade50 [-h] [-v] [-o {ansi,json,autojson,autojsonsb}] [-t TEMPLATE] [-V] scheme report
+usage: gradelab50 [-h] [-v] [-o {ansi,json,autojson,autojsonsb}] [-t TEMPLATE] [-V] scheme report
 
 grade student submissions based on check50 json reports.
 
@@ -29,13 +31,12 @@ optional arguments:
 ## Installation
 
 ```
-pip install grade50
+pip install gradelab50
 ```
 
 ## Grading Schemes
 
-are given in YAML format and have to contain a list of parts, each of which is a dictionary defining a name and a list of checks.
-A check is a dictionary with
+Are given in YAML format and have to contain a list of parts, each of which is a dictionary defining a name and a list of checks. A check is a dictionary with
 
 - `name` a string, has to appear as check name in the check50 report file. This means our problem set has a check (python function) by that name.
 - `points`, an integer, the number of points given if the check passes. Can be zero.
@@ -77,10 +78,10 @@ A check is a dictionary with
 
 ## Output
 
-grade50 can output either plain text or json data for further use in scripts.
+gradelab50 can output either plain text or json data for further use in scripts.
 
 ### json
-use `grad50 -o json` to output json data.
+use `gradlab50 -o json` to output json data.
 This will be a dictionary mapping `points` and `points_possible` to the total score and total possible score, respectively.
 Further, it maps `parts` to a list of dicts, each with 
 
@@ -90,17 +91,17 @@ Further, it maps `parts` to a list of dicts, each with
 - `comments` (a list of comment strings for all checks in this part)
 
 ### autojson
-use `grad50 -o autojson` to output json data on Autolab format (without scoreboard).
+use `gradlab50 -o autojson` to output json data on Autolab format (without scoreboard).
 This will be a dictionary mapping `problems` and `points` for use on Autolab autograding
 program.
 
 ### autojsonsb
-use `grad50 -o autojsonsb` to output json data on Autolab format (with scoreboard).
+use `gradlab50 -o autojsonsb` to output json data on Autolab format (with scoreboard).
 This will be a dictionary mapping `problems` and `points`, with a `scoreboard` points
 for each problem and `total points`.
 
 ### text
-Textual output is the default. It is based on the above and the default template (see `grade50/templates/default.jinja2`).
+Textual output is the default. It is based on the above and the default template (see `gradelab50/templates/default.jinja2`).
 You can pass any other jinja2 template as by means of the `--template` option.
 This way one can easily generate for example latex sources that can be compiled into pdf feedback files for students.
 
@@ -108,3 +109,4 @@ This way one can easily generate for example latex sources that can be compiled 
 
 [check50]: https://github.com/cs50/check50
 [Autolab]: https://github.com/autolab/Autolab
+[grade50]: https://github.com/pazz/grade50
